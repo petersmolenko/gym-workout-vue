@@ -112,12 +112,14 @@ export default {
         }
       ]
     }),
+    created() {
+      console.log('created');
+    },
      watch: {
         $route: {
             immediate: true,
             handler(to) {
-              console.log(to);
-                document.title = to.meta.title || to.name;
+              document.title = to.meta.title || to.name;
             }
         },
     }
