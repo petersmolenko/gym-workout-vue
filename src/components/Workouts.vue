@@ -1,31 +1,27 @@
 <template>
-  <section>
-  <h4>{{header}}</h4> 
-  Workouts
-  </section>
+    <section>
+        <h4>{{ header }}</h4>
+        Workouts
+    </section>
 </template>
 
 <script>
 
 export default {
-  name: 'Workouts',
-  meta: {
-    title: 'horrr'
-  },
-  data () {
-    return {
-      header: 'Тренировки',
-      newMessage: '',
-    }
-  },
+    name: 'Workouts',
+    meta: {
+        title: 'horrr'
+    },
+    data() {
+        return {
+            header: 'Тренировки',
+            newMessage: '',
+        }
+    },
 
-  computed: {
-    
-  },
+    computed: {},
 
-  methods: {
-    
-  },
+    methods: {},
 }
 </script>
 

@@ -1,7 +1,7 @@
 fragment file on File {
-  id
-  path
-  filename
-  mimetype
-  encoding
+    id
+    path
+    filename
+    mimetype
+    encoding
 }

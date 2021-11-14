@@ -1,8 +1,8 @@
 query Exercise ($id: ID!) {
-  exercise (id: $id) {
-    id
-    title
-    description
-    muscleGroup
-  }
+    exercise (id: $id) {
+        id
+        title
+        description
+        muscleGroup
+    }
 }
