@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import {appParams, appRoutes, createRoute} from "./routes";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: appRoutes.root,
     name: 'Home',
     component: Home,
     meta: {
@@ -14,7 +15,7 @@ const routes = [
     }
   },
   {
-    path: '/workouts',
+    path: appRoutes.workouts,
     name: 'Workouts',
     component: () => import(/* webpackChunkName: "workouts" */ '../components/Workouts.vue'),
     meta: {
@@ -22,7 +23,7 @@ const routes = [
     }
   },
   {
-    path: '/exercises',
+    path: appRoutes.exercises,
     name: 'Exercises',
     component: () => import(/* webpackChunkName: "exercises" */ '../components/Exercises.vue'),
     meta: {
@@ -30,11 +31,27 @@ const routes = [
     }
   },
   {
-    path: '/trainer',
-    name: 'Trainer',
+    path: createRoute(appRoutes.exercise, [appParams.id]),
+    name: 'Exercise',
+    component: () => import(/* webpackChunkName: "exercises" */ '../components/Exercise.vue'),
+    meta: {
+      title: 'Упражнение'
+    }
+  },
+  {
+    path: appRoutes.trainers,
+    name: 'Trainers',
     component: () => import(/* webpackChunkName: "exercises" */ '../components/Trainer.vue'),
     meta: {
       title: 'Тренажеры'
+    }
+  },
+  {
+    path: appRoutes.trainer,
+    name: 'Trainer',
+    component: () => import(/* webpackChunkName: "exercises" */ '../components/Trainer.vue'),
+    meta: {
+      title: 'Тренажер'
     }
   }
 ]
