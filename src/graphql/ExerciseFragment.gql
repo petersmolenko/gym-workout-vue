@@ -1,0 +1,9 @@
+fragment Exercise on Exercise {
+    id
+    title
+    description
+    muscleGroup
+    trainingApparatus {
+        id
+    }
+}

@@ -31,10 +31,34 @@ type File {
   encoding: String!
 }
 
+# Виды групп мышц
+enum ExerciseMuscleGroup {
+  LEGS
+  HANDS
+  BACK
+  SHOULDERS
+  CHEST
+}
+
+# Сущность тренажера
+type TrainingApparatus {
+  id: ID!
+}
+
+# Сущность упражнения
+type Exercise {
+  id: ID!
+  title: String!
+  description: String!
+  trainingApparatus: TrainingApparatus!
+  muscleGroup: ExerciseMuscleGroup
+}
+
 
 type Query {
   "Test query with a parameter"
   hello(name: String): String!
+  exercise(id: ID!): Exercise
   "List of messages sent by users"
   messages: [Message]
   uploads: [File]
