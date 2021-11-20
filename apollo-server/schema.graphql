@@ -59,6 +59,7 @@ type Query {
   "Test query with a parameter"
   hello(name: String): String!
   exercise(id: ID!): Exercise
+  exercises: [Exercise]
   "List of messages sent by users"
   messages: [Message]
   uploads: [File]

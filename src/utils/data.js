@@ -1,16 +1,24 @@
 export const getMuscleGroupCaptionByAlias = (alias) => {
-  switch (alias.toLowerCase()) {
-    case "legs":
+  switch (alias) {
+    case MUSCLE_GROUP.legs:
       return "Ноги";
-    case "hands":
+    case MUSCLE_GROUP.hands:
       return "Руки";
-    case "shoulders":
+    case MUSCLE_GROUP.shoulders:
       return "Плечи";
-    case "back":
+    case MUSCLE_GROUP.back:
       return "Спина";
-    case "chest":
+    case MUSCLE_GROUP.chest:
       return "Грудь";
     default:
       return "Неопределенная группа мышц";
   }
+};
+
+export const MUSCLE_GROUP = {
+  legs: "LEGS",
+  hands: "HANDS",
+  shoulders: "SHOULDERS",
+  back: "BACK",
+  chest: "CHEST",
 };

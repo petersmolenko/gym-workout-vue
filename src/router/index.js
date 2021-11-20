@@ -33,10 +33,12 @@ const routes = [
     },
   },
   {
-    path: createRouteTemplate(appRoutes.exercises, [appParams.muscleGroupFilter]),
+    path: createRouteTemplate(appRoutes.exercises, [
+      appParams.muscleGroupFilter,
+    ]),
     name: "Exercises by muscle group",
     component: () =>
-        import(/* webpackChunkName: "exercises" */ "../components/Exercises.vue"),
+      import(/* webpackChunkName: "exercises" */ "../components/Exercises.vue"),
     meta: {
       title: "Упражнения для мускл-группы",
     },

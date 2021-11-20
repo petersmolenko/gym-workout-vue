@@ -1,5 +1,5 @@
-query Exercise ($id: ID!) {
-    exercise (id: $id) {
+query Exercises {
+    exercises {
         id
         title
         description
