@@ -9,10 +9,10 @@
 
 export default {
     name: 'Trainer',
-    title: 'Тренажеры',
+    title: 'Тренажер',
     data() {
         return {
-            header: 'Тренажеры',
+            header: 'Тренажер',
             newMessage: '',
         }
     },

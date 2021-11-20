@@ -56,7 +56,7 @@ const routes = [
     path: appRoutes.trainers,
     name: "Trainers",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Trainer.vue"),
+      import(/* webpackChunkName: "exercises" */ "../components/Trainers.vue"),
     meta: {
       title: "Тренажеры",
     },
@@ -65,7 +65,7 @@ const routes = [
     path: appRoutes.trainer,
     name: "Trainer",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Trainer.vue"),
+      import(/* webpackChunkName: "exercises" */ "../components/Trainers.vue"),
     meta: {
       title: "Тренажер",
     },

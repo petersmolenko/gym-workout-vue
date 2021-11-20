@@ -43,6 +43,9 @@ enum ExerciseMuscleGroup {
 # Сущность тренажера
 type TrainingApparatus {
   id: ID!
+  title: String!
+  description: String!
+  cover: String
 }
 
 # Сущность упражнения
@@ -60,6 +63,7 @@ type Query {
   hello(name: String): String!
   exercise(id: ID!): Exercise
   exercises: [Exercise]
+  trainers: [TrainingApparatus]
   "List of messages sent by users"
   messages: [Message]
   uploads: [File]

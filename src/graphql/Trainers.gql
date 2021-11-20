@@ -1,0 +1,8 @@
+query Trainers {
+    trainers {
+        id
+        title
+        description
+    }
+}
+
