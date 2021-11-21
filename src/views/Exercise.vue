@@ -52,7 +52,7 @@
 <script>
 import {getMuscleGroupCaptionByAlias} from "../utils/data";
 import {appRoutes, createRoute} from "../router/routes";
-import ApolloQueryPresenter from './controls/ApolloQueryPresenter.vue';
+import ApolloQueryPresenter from '../components/ApolloQueryPresenter.vue';
 
 export default {
     name: 'Exercise',

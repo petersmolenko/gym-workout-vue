@@ -107,7 +107,7 @@
 
 <script>
 import {getMuscleGroupCaptionByAlias} from "@/utils/data";
-import ApolloQueryPresenter from './controls/ApolloQueryPresenter.vue';
+import ApolloQueryPresenter from '../components/ApolloQueryPresenter.vue';
 
 export default {
     name: 'Exercises',

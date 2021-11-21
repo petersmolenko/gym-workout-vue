@@ -48,7 +48,7 @@
 
 <script>
 
-import ApolloQueryPresenter from "@/components/controls/ApolloQueryPresenter";
+import ApolloQueryPresenter from "@/components/ApolloQueryPresenter";
 import {clearUrl, defaultTrainerImage, getMediaPath, getStaticPath} from "@/server/server";
 
 export default {

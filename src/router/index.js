@@ -18,7 +18,7 @@ const routes = [
     path: appRoutes.workouts,
     name: "Workouts",
     component: () =>
-      import(/* webpackChunkName: "workouts" */ "../components/Workouts.vue"),
+      import(/* webpackChunkName: "workouts" */ "../views/Workouts.vue"),
     meta: {
       title: "Тренировки",
     },
@@ -27,7 +27,7 @@ const routes = [
     path: appRoutes.exercises,
     name: "Exercises",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Exercises.vue"),
+      import(/* webpackChunkName: "exercises" */ "../views/Exercises.vue"),
     meta: {
       title: "Упражнения",
     },
@@ -38,7 +38,7 @@ const routes = [
     ]),
     name: "Exercises by muscle group",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Exercises.vue"),
+      import(/* webpackChunkName: "exercises" */ "../views/Exercises.vue"),
     meta: {
       title: "Упражнения для мускл-группы",
     },
@@ -47,7 +47,7 @@ const routes = [
     path: createRouteTemplate(appRoutes.exercise, [appParams.id]),
     name: "Exercise",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Exercise.vue"),
+      import(/* webpackChunkName: "exercises" */ "../views/Exercise.vue"),
     meta: {
       title: "Упражнение",
     },
@@ -56,7 +56,7 @@ const routes = [
     path: appRoutes.trainers,
     name: "Trainers",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Trainers.vue"),
+      import(/* webpackChunkName: "exercises" */ "../views/Trainers.vue"),
     meta: {
       title: "Тренажеры",
     },
@@ -65,7 +65,7 @@ const routes = [
     path: appRoutes.trainer,
     name: "Trainer",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../components/Trainers.vue"),
+      import(/* webpackChunkName: "exercises" */ "../views/Trainers.vue"),
     meta: {
       title: "Тренажер",
     },
