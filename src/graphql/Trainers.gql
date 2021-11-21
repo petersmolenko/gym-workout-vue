@@ -2,6 +2,7 @@ query Trainers {
     trainers {
         id
         title
+        cover
         description
     }
 }
