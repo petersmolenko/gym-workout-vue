@@ -57,15 +57,6 @@ export default {
     components: {
         ApolloQueryPresenter
     },
-    data() {
-        return {
-            header: 'Тренажеры',
-            newMessage: '',
-        }
-    },
-
-    computed: {},
-
     methods: {
         getTrainerImage: (url) => {
             if (url) return getMediaPath(clearUrl(url));
@@ -75,7 +66,3 @@ export default {
     },
 }
 </script>
-
-<style scoped>
-
-</style>
