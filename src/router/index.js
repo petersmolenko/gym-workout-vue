@@ -40,7 +40,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "exercises" */ "../views/Exercises.vue"),
     meta: {
-      title: "Упражнения для мускл-группы",
+      title: "Упражнения",
     },
   },
   {

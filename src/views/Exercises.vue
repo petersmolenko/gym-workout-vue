@@ -106,7 +106,7 @@
 <script>
 import {getMuscleGroupCaptionByAlias, MUSCLE_GROUP} from "@/utils/data";
 import ApolloQueryPresenter from '../components/ApolloQueryPresenter.vue';
-import {appParams} from "@/router/routes";
+import {appParams, appRoutes, createRoute} from "@/router/routes";
 
 export default {
     name: 'Exercises',
@@ -146,11 +146,17 @@ export default {
             return getMuscleGroupCaptionByAlias(mGroup)
         },
         applySelectFilter() {
-            this.appliedMuscleGroupFilter = this.selectMuscleGroupFilterItem;
+            console.log('sor', this.selectMuscleGroupFilterItem?.value);
+            this.$router.push(createRoute(appRoutes.exercises, [this.selectMuscleGroupFilterItem?.value ?? '']))
+                .then(res => {
+                    this.appliedMuscleGroupFilter = res.params[appParams.muscleGroupFilter];
+                    console.log('ooo', res);
+                })
+                .catch(()=>{})
         },
         resetSelectFilter() {
             this.selectMuscleGroupFilterItem = null;
-            this.appliedMuscleGroupFilter = null;
+            this.applySelectFilter();
         },
         filterExercises(exercises) {
             console.log('soo', this.$route.params[appParams.muscleGroupFilter], this.appliedMuscleGroupFilter, exercises);
