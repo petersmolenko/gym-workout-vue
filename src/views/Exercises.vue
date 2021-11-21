@@ -106,18 +106,22 @@
 <script>
 import {getMuscleGroupCaptionByAlias, MUSCLE_GROUP} from "@/utils/data";
 import ApolloQueryPresenter from '../components/ApolloQueryPresenter.vue';
+import {appParams} from "@/router/routes";
 
 export default {
     name: 'Exercises',
     components: {
         ApolloQueryPresenter
     },
+    created() {
+        console.log('sd', this.$route.params[appParams.muscleGroupFilter]);
+    },
     data() {
         return {
             exercises: [],
             muscleGroupFilterItems: this.makeMuscleGroupFilters(),
-            selectMuscleGroupFilterItem: null,
-            appliedMuscleGroupFilter: null
+            selectMuscleGroupFilterItem: this.makeMuscleGroupFilter(this.$route.params[appParams.muscleGroupFilter]),
+            appliedMuscleGroupFilter: this.makeMuscleGroupFilter(this.$route.params[appParams.muscleGroupFilter])
         }
     },
 
@@ -149,15 +153,19 @@ export default {
             this.appliedMuscleGroupFilter = null;
         },
         filterExercises(exercises) {
+            console.log('soo', this.$route.params[appParams.muscleGroupFilter], this.appliedMuscleGroupFilter, exercises);
             return exercises.filter(exercise => !this.appliedMuscleGroupFilter || exercise.muscleGroup === this.appliedMuscleGroupFilter.value);
         },
+        makeMuscleGroupFilter(mg) {
+            if (!mg) return null;
+
+            return {
+                text: this.getCaptionMuscleGroup(mg),
+                value: mg
+            }
+        },
         makeMuscleGroupFilters() {
-           return Object.values(MUSCLE_GROUP).map(mg => (
-                {
-                    text: this.getCaptionMuscleGroup(mg),
-                    value: mg
-                }
-            ));
+           return Object.values(MUSCLE_GROUP).map(this.makeMuscleGroupFilter.bind(this));
         }
     },
 }

@@ -65,7 +65,7 @@ export default {
         },
 
         exercisesForMuscleGroupPath(muscleGroup) {
-            return createRoute(appRoutes.exercises, [muscleGroup.toLowerCase()])
+            return createRoute(appRoutes.exercises, [muscleGroup])
         },
 
         createBreadCrumbs(exercise) {
