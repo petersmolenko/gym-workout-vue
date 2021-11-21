@@ -47,7 +47,7 @@ const routes = [
     path: createRouteTemplate(appRoutes.exercise, [appParams.id]),
     name: "Exercise",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../views/Exercise.vue"),
+      import(/* webpackChunkName: "exercise" */ "../views/Exercise.vue"),
     meta: {
       title: "Упражнение",
     },
@@ -56,18 +56,9 @@ const routes = [
     path: appRoutes.trainers,
     name: "Trainers",
     component: () =>
-      import(/* webpackChunkName: "exercises" */ "../views/Trainers.vue"),
+      import(/* webpackChunkName: "trainers" */ "../views/Trainers.vue"),
     meta: {
       title: "Тренажеры",
-    },
-  },
-  {
-    path: appRoutes.trainer,
-    name: "Trainer",
-    component: () =>
-      import(/* webpackChunkName: "exercises" */ "../views/Trainers.vue"),
-    meta: {
-      title: "Тренажер",
     },
   },
 ];
