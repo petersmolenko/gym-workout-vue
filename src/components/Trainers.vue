@@ -33,7 +33,7 @@
                                                 v-text="item.title"
                                             ></v-card-title>
 
-                                            <v-card-text>{{item.description}}</v-card-text>
+                                            <v-card-text>{{ item.description }}</v-card-text>
                                         </div>
                                     </div>
                                 </v-card>

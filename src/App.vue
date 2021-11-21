@@ -3,29 +3,51 @@
         <v-app-bar
             app
             color="orange"
+            class="pa-0 fill-height"
             absolute
         >
-            <v-app-bar-nav-icon @click="drawer = true"/>
-            <v-spacer></v-spacer>
-            <div class="d-flex align-center ml-2">
-                <v-icon
-                    large
-                    color="black"
-                >
-                    mdi-star-shooting
-                </v-icon>
-                <v-toolbar-title
-                    class="text-h5 font-weight-bold"
-                >
-                    <router-link :to="`/`" class="text-decoration-none black--text">
-                        GymWorkout
-                    </router-link>
-                    <span class="text-h6 font-weight-300 orange--text px-5 py-2 black">
-          {{ $route.meta.title }}
-        </span>
-                </v-toolbar-title>
-            </div>
-            <v-spacer></v-spacer>
+            <v-container class="d-flex justify-space-between align-content-stretch fill-height">
+                <v-toolbar-items class="hidden-lg-and-up">
+                    <v-app-bar-nav-icon @click="drawer = true"/>
+                    <v-spacer></v-spacer>
+                </v-toolbar-items>
+                <div class="d-flex align-center ml-2">
+                    <v-icon
+                        large
+                        color="black"
+                    >
+                        mdi-star-shooting
+                    </v-icon>
+                    <v-toolbar-title
+                        class="text-h5 font-weight-bold"
+                    >
+                        <router-link :to="`/`" class="text-decoration-none black--text">
+                            GymWorkout
+                        </router-link>
+                        <span class="text-h6 font-weight-300 orange--text px-5 py-2 black">
+                          {{ $route.meta.title }}
+                        </span>
+                    </v-toolbar-title>
+                </div>
+                <v-toolbar-items class="hidden-md-and-down">
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        v-for="item in menuItems"
+                        :key="item.caption"
+                        class="orange fill-height"
+                        :to="`${item.path}`"
+                        flat
+                        text
+                    >
+                        <v-icon class="mr-1">
+                            {{ item.icon }}
+                        </v-icon>
+                        <div class="text--darken-1">
+                            {{ item.caption }}
+                        </div>
+                    </v-btn>
+                </v-toolbar-items>
+            </v-container>
         </v-app-bar>
 
         <v-navigation-drawer
