@@ -82,7 +82,7 @@
         </v-navigation-drawer>
 
         <v-main class="d-flex flex-column">
-            <div class="text-h6 font-weight-300 orange--text px-5 py-2 black text-uppercase">
+            <div class="text-h6 font-weight-300 orange--text px-5 black text-uppercase">
                 <v-container>
                     {{ $route.meta.title }}
                 </v-container>
