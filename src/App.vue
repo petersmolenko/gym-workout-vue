@@ -1,16 +1,13 @@
 <template>
-    <v-app>
+    <v-app class="pa-0">
         <v-app-bar
             app
             color="orange"
             class="pa-0 fill-height"
+            style="padding: 0"
             absolute
         >
-            <v-container class="d-flex justify-space-between align-content-stretch fill-height">
-                <v-toolbar-items class="hidden-lg-and-up">
-                    <v-app-bar-nav-icon @click="drawer = true"/>
-                    <v-spacer></v-spacer>
-                </v-toolbar-items>
+            <v-container class="d-flex justify-space-between fill-height align-center py-0">
                 <div class="d-flex align-center ml-2">
                     <v-icon
                         large
@@ -29,8 +26,8 @@
                         </span>
                     </v-toolbar-title>
                 </div>
+                <v-spacer></v-spacer>
                 <v-toolbar-items class="hidden-md-and-down">
-                    <v-spacer></v-spacer>
                     <v-btn
                         v-for="item in menuItems"
                         :key="item.caption"
@@ -46,6 +43,9 @@
                             {{ item.caption }}
                         </div>
                     </v-btn>
+                </v-toolbar-items>
+                <v-toolbar-items class="hidden-lg-and-up">
+                    <v-app-bar-nav-icon @click="drawer = true"/>
                 </v-toolbar-items>
             </v-container>
         </v-app-bar>
@@ -146,3 +146,9 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+/deep/ .v-toolbar__content {
+        padding: 0px !important;
+    }
+</style>
