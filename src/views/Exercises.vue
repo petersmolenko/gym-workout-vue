@@ -1,12 +1,10 @@
 <template>
     <v-container class="fill-height flex-column d-flex align-stretch">
-        <v-toolbar dense class="mb-5 flex-grow-0">
-            <v-spacer/>
+        <v-toolbar dense class="mb-5 flex-grow-0 px-1">
             <v-combobox
                 v-model="selectMuscleGroupFilterItem"
                 :items="muscleGroupFilterItems"
                 label="Фильтровать упражнения"
-                chips
                 single-line
                 hide-details
                 outlined
@@ -106,7 +104,7 @@
 </template>
 
 <script>
-import {getMuscleGroupCaptionByAlias} from "@/utils/data";
+import {getMuscleGroupCaptionByAlias, MUSCLE_GROUP} from "@/utils/data";
 import ApolloQueryPresenter from '../components/ApolloQueryPresenter.vue';
 
 export default {
@@ -117,19 +115,9 @@ export default {
     data() {
         return {
             exercises: [],
-            muscleGroupFilterItems: [],
+            muscleGroupFilterItems: this.makeMuscleGroupFilters(),
             selectMuscleGroupFilterItem: null,
             appliedMuscleGroupFilter: null
-        }
-    },
-
-    computed: {
-        filteredExercises() {
-            const filter = this.appliedMuscleGroupFilter
-
-            if (!filter) return this.exercises;
-
-            return this.exercises.filter(ex => ex.muscleGroup === filter.value)
         }
     },
 
@@ -162,6 +150,14 @@ export default {
         },
         filterExercises(exercises) {
             return exercises.filter(exercise => !this.appliedMuscleGroupFilter || exercise.muscleGroup === this.appliedMuscleGroupFilter.value);
+        },
+        makeMuscleGroupFilters() {
+           return Object.values(MUSCLE_GROUP).map(mg => (
+                {
+                    text: this.getCaptionMuscleGroup(mg),
+                    value: mg
+                }
+            ));
         }
     },
 }
