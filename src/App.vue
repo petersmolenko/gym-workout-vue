@@ -21,9 +21,6 @@
                         <router-link :to="`/`" class="text-decoration-none black--text">
                             GymWorkout
                         </router-link>
-                        <span class="text-h6 font-weight-300 orange--text px-5 py-2 black">
-                          {{ $route.meta.title }}
-                        </span>
                     </v-toolbar-title>
                 </div>
                 <v-spacer></v-spacer>
@@ -85,6 +82,11 @@
         </v-navigation-drawer>
 
         <v-main>
+            <div class="text-h6 font-weight-300 orange--text px-5 py-2 black text-uppercase">
+                <v-container>
+                    {{ $route.meta.title }}
+                </v-container>
+            </div>
             <router-view/>
         </v-main>
         <v-footer
