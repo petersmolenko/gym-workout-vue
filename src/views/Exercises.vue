@@ -1,5 +1,5 @@
 <template>
-    <v-container class="fill-height flex-column d-flex align-stretch">
+    <v-container class="flex-column d-flex align-stretch flex-grow-1">
         <v-toolbar dense class="mb-5 flex-grow-0 px-1">
             <v-combobox
                 v-model="selectMuscleGroupFilterItem"
@@ -46,7 +46,7 @@
                     <template
                         v-slot="{data}"
                     >
-                        <v-row dense>
+                        <v-row dense v-if="filterExercises(data.exercises).length > 0">
                             <v-col
                                 v-for="(item, i) in filterExercises(data.exercises)"
                                 :key="i"
@@ -96,6 +96,7 @@
                                 </v-card>
                             </v-col>
                         </v-row>
+                        <div v-else class="d-flex justify-center align-center fill-height text-subtitle-1">Нет доступных упражнений</div>
                     </template>
                 </apollo-query-presenter>
             </template>
@@ -112,9 +113,6 @@ export default {
     name: 'Exercises',
     components: {
         ApolloQueryPresenter
-    },
-    created() {
-        console.log('sd', this.$route.params[appParams.muscleGroupFilter]);
     },
     data() {
         return {
@@ -146,11 +144,9 @@ export default {
             return getMuscleGroupCaptionByAlias(mGroup)
         },
         applySelectFilter() {
-            console.log('sor', this.selectMuscleGroupFilterItem?.value);
             this.$router.push(createRoute(appRoutes.exercises, [this.selectMuscleGroupFilterItem?.value ?? '']))
                 .then(res => {
-                    this.appliedMuscleGroupFilter = res.params[appParams.muscleGroupFilter];
-                    console.log('ooo', res);
+                    this.appliedMuscleGroupFilter = this.makeMuscleGroupFilter(res.params[appParams.muscleGroupFilter]);
                 })
                 .catch(()=>{})
         },
@@ -159,7 +155,6 @@ export default {
             this.applySelectFilter();
         },
         filterExercises(exercises) {
-            console.log('soo', this.$route.params[appParams.muscleGroupFilter], this.appliedMuscleGroupFilter, exercises);
             return exercises.filter(exercise => !this.appliedMuscleGroupFilter || exercise.muscleGroup === this.appliedMuscleGroupFilter.value);
         },
         makeMuscleGroupFilter(mg) {

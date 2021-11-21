@@ -81,7 +81,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-main>
+        <v-main class="d-flex flex-column">
             <div class="text-h6 font-weight-300 orange--text px-5 py-2 black text-uppercase">
                 <v-container>
                     {{ $route.meta.title }}
@@ -153,4 +153,8 @@ export default {
 /deep/ .v-toolbar__content {
         padding: 0px !important;
     }
+/deep/ .v-main__wrap {
+    display: flex;
+    flex-direction: column;
+}
 </style>
