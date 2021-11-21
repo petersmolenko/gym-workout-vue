@@ -103,6 +103,8 @@
 </template>
 
 <script>
+import {appRoutes} from "@/router/routes";
+
 export default {
     name: 'App',
 
@@ -115,28 +117,25 @@ export default {
             {
                 caption: 'Главная',
                 icon: 'mdi-home',
-                path: '/'
+                path: appRoutes.root
             },
             {
                 caption: 'Тренировки',
                 icon: 'mdi-flash',
-                path: '/workouts'
+                path: appRoutes.workouts
             },
             {
                 caption: 'Упражнения',
                 icon: 'mdi-arm-flex',
-                path: '/exercises'
+                path: appRoutes.exercises
             },
             {
                 caption: 'Тренажеры',
                 icon: 'mdi-anvil',
-                path: '/trainer'
+                path: appRoutes.trainers
             }
         ]
     }),
-    created() {
-        console.log('created');
-    },
     watch: {
         $route: {
             immediate: true,
