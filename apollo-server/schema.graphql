@@ -57,6 +57,28 @@ type Exercise {
   muscleGroup: ExerciseMuscleGroup
 }
 
+type WorkoutPart {
+  id: ID!
+  title: String!
+  description: String!
+  exercise: Exercise!
+  weight: Float!
+  repetitionsNumber: Int!
+  sortOrder: Int!
+  completed: Boolean!
+  comment: String
+}
+
+type Workout {
+  id: ID!
+  title: String!
+  description: String!
+  workoutParts: [WorkoutPart]
+  completed: Boolean!
+  inProcess: Boolean!
+  date: String!
+}
+
 
 type Query {
   "Test query with a parameter"
@@ -64,13 +86,26 @@ type Query {
   exercise(id: ID!): Exercise
   exercises: [Exercise]
   trainers: [TrainingApparatus]
+  workouts: [Workout]!
   "List of messages sent by users"
   messages: [Message]
   uploads: [File]
 
 }
+type S {
+  workoutPart: WorkoutPart!
+}
 
 type Mutation {
+  createWorkoutPart(
+    title: String!,
+    description: String!,
+    exercise: ID!,
+    weight: Float,
+    repetitionsNumber: Int,
+    sortOrder: Int,
+    completed: Boolean
+  ): S!
   myMutation: String!
   "Add a message and publish it on 'messages' subscription channel"
   addMessage (input: MessageInput!): Message!

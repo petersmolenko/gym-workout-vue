@@ -1,7 +1,7 @@
 <template>
     <v-container class="d-flex fill-height align-start">
         <ApolloQuery
-            :query="require('../graphql/Exercise.gql')"
+            :query="require('../graphql/queries/Exercise.gql')"
             :variables="{ id: $route.params.id }"
             class="d-flex fill-height flex-grow-1"
             slot="result"

@@ -1,0 +1,32 @@
+mutation createWorkoutPart (
+    $title: String!,
+    $description: String!,
+    $exercise: ID!,
+    $weight: Float,
+    $repetitions_number: Int,
+    $sortOrder: Int,
+    $completed: Boolean
+) {
+    createWorkoutPart (
+        title: $title,
+        description: $description,
+        exercise: $exercise,
+        weight: $weight,
+        repetitionsNumber: $repetitions_number,
+        sortOrder: $sortOrder,
+        completed: $completed
+    ) {
+        workoutPart {
+            id
+            title
+            description
+            exercise {
+                id
+            }
+            weight
+            repetitionsNumber
+            sortOrder
+            completed
+        }
+    }
+}

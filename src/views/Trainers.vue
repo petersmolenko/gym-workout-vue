@@ -1,7 +1,7 @@
 <template>
     <v-container class="fill-height flex-column d-flex align-stretch">
         <ApolloQuery
-            :query="require('../graphql/Trainers.gql')"
+            :query="require('../graphql/queries/Trainers.gql')"
             slot="result"
             class="flex-grow-1"
         >

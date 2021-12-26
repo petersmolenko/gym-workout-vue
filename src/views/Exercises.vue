@@ -37,7 +37,7 @@
             <v-spacer/>
         </v-toolbar>
         <ApolloQuery
-            :query="require('../graphql/Exercises.gql')"
+            :query="require('../graphql/queries/Exercises.gql')"
             slot="result"
             class="flex-grow-1"
         >

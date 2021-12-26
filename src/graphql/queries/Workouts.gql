@@ -1,0 +1,11 @@
+query Workouts {
+    workouts {
+        id
+        title
+        description
+        completed
+        inProcess
+        date
+    }
+}
+
