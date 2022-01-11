@@ -33,132 +33,84 @@
                                     <v-card-text>
                                         <v-container>
                                             <v-row>
-                                                <v-col
-                                                    cols="12"
-                                                >
-                                                    <v-text-field
-                                                        label="Название*"
-                                                        required
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col
-                                                    cols="12"
-                                                >
-                                                    <v-textarea
-                                                        label="Краткое описание"
-                                                        text
-                                                    ></v-textarea>
-                                                </v-col>
-                                                <v-col
-                                                    cols="12"
-                                                    class="d-flex justify-space-between text-h6"
-                                                >
-                                                    <div>
-                                                        Этапы
-                                                    </div>
-                                                    <div>
-                                                        <v-btn
-                                                            v-on:click="onShowPartClick"
-                                                            color="orange"
-                                                            class="control black--text"
-                                                            fab
-                                                            dark
+                                                <v-text-field
+                                                    label="Название*"
+                                                    required
+                                                ></v-text-field>
+                                            </v-row>
+                                            <v-row>
+                                                <v-textarea
+                                                    label="Краткое описание"
+                                                    text
+                                                ></v-textarea>
+                                            </v-row>
+                                            <v-row>
+                                                <div class="text-h6 mb-5">
+                                                    Этапы
+                                                </div>
+                                            </v-row>
+                                            <v-row>
+                                                <v-timeline dense v-if="!!exercises.length">
+                                                    <v-slide-x-reverse-transition
+                                                        group
+                                                        hide-on-leave
+                                                    >
+                                                        <v-timeline-item
+                                                            v-for="item in exercises"
+                                                            :key="item.id"
+                                                            :color="item.color"
                                                             small
+                                                            fill-dot
                                                         >
-                                                            <v-icon v-if="!showWorkPartForm">mdi-plus</v-icon>
-                                                            <v-icon v-else>mdi-close-thick</v-icon>
-                                                        </v-btn>
-                                                    </div>
-                                                </v-col>
-                                                <v-col v-if="showWorkPartForm">
-                                                    <template>
-                                                        <ApolloMutation
-                                                            :mutation="require('../graphql/mutations/AddWorkPart.gql')"
-                                                            :variables="{
-                                                                title: wpTitle,
-                                                                description: wpDescription,
-                                                                exercise: wpExercise.abbr,
-                                                                weight: wpWeight,
-                                                                repetitionsNumber: wpRepetitionsNumber,
-                                                                sortOrder: wpSortOrder,
-                                                            }"
-                                                            @done="onDone"
-                                                        >
-                                                            <template v-slot="{ mutate, loading, error }">
-                                                                <v-row>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                    >
-                                                                        <v-text-field
-                                                                            v-model="wpTitle"
-                                                                            label="Название*"
-                                                                            required
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                </v-row>
-                                                                <v-row>
-                                                                    <v-col
-                                                                        cols="12"
-                                                                    >
-                                                                        <v-textarea
-                                                                            v-model="wpDescription"
-                                                                            label="Описание*"
-                                                                            text
-                                                                            required
-                                                                        ></v-textarea>
-                                                                    </v-col>
-                                                                </v-row>
-                                                                <v-row>
-                                                                    <v-col cols="12">
-                                                                        <v-select
-                                                                            v-model="wpExercise"
-                                                                            :items="exercisesList"
-                                                                            item-text="state"
-                                                                            item-value="abbr"
-                                                                            label="Упражнение"
-                                                                            :disabled="!exercisesList.length"
-                                                                            persistent-hint
-                                                                            return-object
-                                                                            single-line
-                                                                        ></v-select>
-                                                                    </v-col>
-                                                                </v-row>
-                                                                <v-row>
-                                                                    <v-col
-                                                                        cols="6"
-                                                                    >
-                                                                        <v-text-field
-                                                                            type="number"
-                                                                            v-model="wpWeight"
-                                                                            label="Вес"
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                    <v-col
-                                                                        cols="6"
-                                                                    >
-                                                                        <v-text-field
-                                                                            type="number"
-                                                                            v-model="wpRepetitionsNumber"
-                                                                            label="Количество повторений"
-                                                                            required
-                                                                        ></v-text-field>
-                                                                    </v-col>
-                                                                </v-row>
-                                                                <v-btn
-                                                                    color="orange"
-                                                                    :disabled="!isValidWPForm"
-                                                                    @click="mutate()"
-                                                                >
-                                                                    Добавить
-                                                                </v-btn>
-                                                                <p v-if="error">An error occurred: {{ error }}</p>
-                                                            </template>
-                                                        </ApolloMutation>
+                                                            <v-alert
+                                                                :value="true"
+                                                                color="orange"
+                                                                class="black--text"
+                                                            >
+                                                                <div class="text-h5">
+                                                                    {{item.title}}
+                                                                </div>
+                                                                <div class="text">
+                                                                    {{item.description}}
+                                                                </div>
+                                                            </v-alert>
+                                                        </v-timeline-item>
+                                                    </v-slide-x-reverse-transition>
+                                                </v-timeline>
+                                                <div
+                                                    v-else
+                                                    class="py-8 d-flex justify-center align-center"
+                                                >
+                                                    Этапы тренировки отсутствуют
+                                                </div>
+                                            </v-row>
+                                            <v-row class="py-5">
+                                                <v-btn
+                                                    v-on:click="onShowPartClick"
+                                                    color="orange"
+                                                    class="control black--text"
+                                                    dark
+                                                >
+                                                    <v-icon v-if="!showWorkPartForm">mdi-plus</v-icon>
+                                                    <v-icon v-else>mdi-close-thick</v-icon>
+                                                </v-btn>
+                                            </v-row>
+                                            <v-row v-if="showWorkPartForm">
+                                                <ApolloMutation
+                                                    class="flex-grow-1"
+                                                    :mutation="require('../graphql/mutations/AddWorkPart.gql')"
+                                                    :variables="editWorkPart"
+                                                    @done="onDone"
+                                                >
+                                                    <template v-slot="{ mutate }">
+                                                        <add-workout-part
+                                                            fluid
+                                                            :on-change="onChangeWorkPartForm(mutate)"
+                                                        />
                                                     </template>
-                                                </v-col>
+                                                </ApolloMutation>
                                             </v-row>
                                         </v-container>
-                                        <small>*indicates required field</small>
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
@@ -167,14 +119,14 @@
                                             text
                                             @click="dialog = false"
                                         >
-                                            Close
+                                            Отменить
                                         </v-btn>
                                         <v-btn
                                             color="blue darken-1"
                                             text
                                             @click="on"
                                         >
-                                            Save
+                                            Сохранить
                                         </v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -235,7 +187,7 @@
 <script>
 
 import ApolloQueryPresenter from "@/components/ApolloQueryPresenter";
-import gql from "graphql-tag";
+import AddWorkoutPart from "@/components/AddWorkoutPart";
 
 export default {
     name: 'Workouts',
@@ -243,22 +195,8 @@ export default {
         title: 'horrr'
     },
     components: {
-        ApolloQueryPresenter
-    },
-    async created () {
-        console.log('created');
-        const exercises = await this.$apollo.query({
-            query: gql`
-               query {
-                    exercises {
-                        id
-                        title
-                    }
-               }
-            `
-        });
-
-        this.exercisesList = exercises.data.exercises.map(this.mapExerciseToSelectItem);
+        AddWorkoutPart,
+        ApolloQueryPresenter,
     },
     data() {
         return {
@@ -267,47 +205,36 @@ export default {
             dialog: false,
             // form
             showWorkPartForm: false,
-            exercisesList: [],
-            wpTitle: '',
-            wpDescription: '',
-            wpExercise: {
-                abbr: null
-            },
-            wpWeight: 0,
-            wpRepetitionsNumber: 0,
-            wpSortOrder: 0,
-            wpCompleted: false
+            editWorkPart: {},
+            exercises: []
         }
     },
 
     computed: {
-        isValidWPForm() {
-            return (
-                !!this.wpTitle &&
-                !!this.wpDescription &&
-                !!this.wpExercise &&
-                !!this.wpRepetitionsNumber
-            )
-        }
     },
 
     methods: {
+        onChangeWorkPartForm(mutate) {
+            return async (val) => {
+                this.editWorkPart = val;
+
+                await this.$nextTick();
+
+                mutate();
+            }
+        },
         on(some) {
             console.log('sommm', some);
         },
         onDone(res) {
-            console.log('done', res);
+            const wp = res.data.createWorkoutPart.workoutPart;
+            console.log('done', wp);
+            this.exercises = [...this.exercises, wp]
         },
         onShowPartClick() {
             this.showWorkPartForm = !this.showWorkPartForm;
             console.log('show', this.showWorkPartForm)
         },
-        mapExerciseToSelectItem(exercise) {
-            return {
-                state: exercise.title,
-                abbr: exercise.id
-            };
-        }
     },
 }
 </script>
