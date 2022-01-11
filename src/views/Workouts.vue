@@ -116,15 +116,24 @@
                                     </v-card-text>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn
-                                            color="blue darken-1"
-                                            text
-                                            @click="dialog = false"
-                                        >
-                                            Отменить
-                                        </v-btn>
                                         <ApolloMutation
-                                            class="flex-grow-1"
+                                            :mutation="require('../graphql/mutations/DeleteWorkPart.gql')"
+                                            :variables="{
+                                                ids: workoutParts.map(wp => wp.id)
+                                            }"
+                                            @done="onSuccessWorkoutCreate"
+                                        >
+                                            <template v-slot="{ mutate }">
+                                                <v-btn
+                                                    color="blue darken-1"
+                                                    text
+                                                    @click="onCancel(mutate)"
+                                                >
+                                                    Отменить
+                                                </v-btn>
+                                            </template>
+                                        </ApolloMutation>
+                                        <ApolloMutation
                                             :mutation="require('../graphql/mutations/AddWorkout.gql')"
                                             :variables="{
                                                 ...value,
@@ -249,9 +258,13 @@ export default {
         },
         onSuccessWorkoutCreate() {
             this.dialog = false;
+            this.value={};
+            this.workoutParts=[];
         },
         onCancel(mutate) {
-            console.log('sommm', mutate);
+            if (!this.workoutParts.length) return this.onSuccessWorkoutCreate();
+
+            mutate();
         },
         onDone(res) {
             const wp = res.data?.createWorkoutPart?.workoutPart;

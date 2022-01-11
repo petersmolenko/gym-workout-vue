@@ -1,0 +1,9 @@
+mutation deleteWorkoutPart (
+    $ids: [ID]!
+) {
+    deleteWorkoutPart (
+        ids: $ids,
+    ) {
+        ok
+    }
+}

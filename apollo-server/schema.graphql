@@ -100,6 +100,10 @@ type workoutData {
   workout: Workout!
 }
 
+type DeleteWorkoutResult {
+  ok: Boolean!
+}
+
 type Mutation {
   createWorkout(
     title: String!,
@@ -115,6 +119,9 @@ type Mutation {
     sortOrder: Int,
     completed: Boolean
   ): S!
+  deleteWorkoutPart(
+    ids: [ID]!,
+  ): DeleteWorkoutResult!
   myMutation: String!
   "Add a message and publish it on 'messages' subscription channel"
   addMessage (input: MessageInput!): Message!
