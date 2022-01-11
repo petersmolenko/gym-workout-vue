@@ -104,8 +104,7 @@ type Mutation {
   createWorkout(
     title: String!,
     description: String!,
-    date: String!,
-    workout_parts: [ID],
+    workoutParts: [ID],
   ): workoutData!
   createWorkoutPart(
     title: String!,

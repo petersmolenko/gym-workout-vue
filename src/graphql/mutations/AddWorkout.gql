@@ -1,0 +1,22 @@
+mutation createWorkout (
+    $title: String!,
+    $description: String!,
+    $workout_parts: [ID]
+) {
+    createWorkout (
+        title: $title,
+        description: $description,
+        workoutParts: $workout_parts
+    ) {
+        workout {
+            id
+            title
+            description
+            date,
+            workoutParts {
+                id
+            }
+            completed
+        }
+    }
+}

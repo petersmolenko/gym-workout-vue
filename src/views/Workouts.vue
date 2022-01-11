@@ -35,12 +35,14 @@
                                             <v-row>
                                                 <v-text-field
                                                     label="Название*"
+                                                    v-model="value.title"
                                                     required
                                                 ></v-text-field>
                                             </v-row>
                                             <v-row>
                                                 <v-textarea
                                                     label="Краткое описание"
+                                                    v-model="value.description"
                                                     text
                                                 ></v-textarea>
                                             </v-row>
@@ -50,13 +52,13 @@
                                                 </div>
                                             </v-row>
                                             <v-row>
-                                                <v-timeline dense v-if="!!exercises.length">
+                                                <v-timeline dense v-if="!!workoutParts.length">
                                                     <v-slide-x-reverse-transition
                                                         group
                                                         hide-on-leave
                                                     >
                                                         <v-timeline-item
-                                                            v-for="item in exercises"
+                                                            v-for="item in workoutParts"
                                                             :key="item.id"
                                                             :color="item.color"
                                                             small
@@ -121,13 +123,25 @@
                                         >
                                             Отменить
                                         </v-btn>
-                                        <v-btn
-                                            color="blue darken-1"
-                                            text
-                                            @click="on"
+                                        <ApolloMutation
+                                            class="flex-grow-1"
+                                            :mutation="require('../graphql/mutations/AddWorkout.gql')"
+                                            :variables="{
+                                                ...value,
+                                                workoutParts: workoutParts.map(wp => wp.id)
+                                            }"
+                                            @done="onSuccessWorkoutCreate"
                                         >
-                                            Сохранить
-                                        </v-btn>
+                                            <template v-slot="{ mutate }">
+                                                <v-btn
+                                                    color="blue darken-1"
+                                                    text
+                                                    @click="onSuccess(mutate)"
+                                                >
+                                                    Сохранить
+                                                </v-btn>
+                                            </template>
+                                        </ApolloMutation>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
@@ -198,6 +212,9 @@ export default {
         AddWorkoutPart,
         ApolloQueryPresenter,
     },
+    created() {
+       console.log('ammmm',  this.currentDate());
+    },
     data() {
         return {
             header: 'Тренировки',
@@ -206,7 +223,11 @@ export default {
             // form
             showWorkPartForm: false,
             editWorkPart: {},
-            exercises: []
+            workoutParts: [],
+            value: {
+                title: '',
+                description: ''
+            }
         }
     },
 
@@ -223,18 +244,32 @@ export default {
                 mutate();
             }
         },
-        on(some) {
-            console.log('sommm', some);
+        onSuccess(mutate) {
+            mutate()
+        },
+        onSuccessWorkoutCreate() {
+            this.dialog = false;
+        },
+        onCancel(mutate) {
+            console.log('sommm', mutate);
         },
         onDone(res) {
-            const wp = res.data.createWorkoutPart.workoutPart;
-            console.log('done', wp);
-            this.exercises = [...this.exercises, wp]
+            const wp = res.data?.createWorkoutPart?.workoutPart;
+            if (!wp) return;
+            this.workoutParts = [...this.workoutParts, wp]
         },
         onShowPartClick() {
             this.showWorkPartForm = !this.showWorkPartForm;
             console.log('show', this.showWorkPartForm)
         },
+        formatNum(num){
+            if (num < 10) return `0${num}`;
+            return String(num);
+        },
+        currentDate() {
+            const d = new Date();
+            return `${d.getFullYear()}-${this.formatNum(d.getMonth()+1)}-${this.formatNum(d.getDate())}`
+        }
     },
 }
 </script>
