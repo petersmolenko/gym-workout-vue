@@ -1,12 +1,12 @@
 mutation createWorkout (
     $title: String!,
     $description: String!,
-    $workout_parts: [ID]
+    $workoutParts: [ID]
 ) {
     createWorkout (
         title: $title,
         description: $description,
-        workoutParts: $workout_parts
+        workoutParts: $workoutParts
     ) {
         workout {
             id
