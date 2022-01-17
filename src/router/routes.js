@@ -6,6 +6,7 @@ export const appRoutes = {
   trainers: "/trainers",
   trainer: "/trainer",
   workouts: "/workouts",
+  workout: "/workout",
 };
 
 // App params

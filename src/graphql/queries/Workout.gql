@@ -1,0 +1,16 @@
+query Workout ($id: ID!) {
+    workout (id: $id) {
+        id
+        title
+        description
+        workoutParts {
+            id
+            title
+            description
+            completed
+        }
+        status
+        date
+    }
+}
+

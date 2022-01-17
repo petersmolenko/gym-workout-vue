@@ -135,6 +135,7 @@
                                 <v-btn
                                     color="blue darken-1"
                                     text
+                                    :disabled="!value.title"
                                     @click="onSuccess(mutate)"
                                 >
                                     Сохранить
@@ -186,15 +187,17 @@
                                     </v-btn>
                                 </template>
                             </ApolloMutation>
-                            <v-btn
-                                color="orange"
-                                class="control black--text"
-                                fab
-                                dark
-                                small
-                            >
-                                <v-icon>mdi-eye</v-icon>
-                            </v-btn>
+                            <router-link tag="div" :to="`/workout/${item.id}`">
+                                <v-btn
+                                    color="orange"
+                                    class="control black--text"
+                                    fab
+                                    dark
+                                    small
+                                >
+                                    <v-icon>mdi-eye</v-icon>
+                                </v-btn>
+                            </router-link>
                         </div>
                     </div>
                 </v-card>
@@ -268,7 +271,7 @@ export default {
             this.dialog = false;
             this.value={};
             this.workoutParts=[];
-            const newWorkout = res.data?.createWorkout?.workout;
+            const newWorkout = res?.data?.createWorkout?.workout;
             //
             if (!newWorkout) return;
             //
@@ -292,10 +295,6 @@ export default {
         onShowPartClick() {
             this.showWorkPartForm = !this.showWorkPartForm;
             console.log('show', this.showWorkPartForm)
-        },
-        formatNum(num){
-            if (num < 10) return `0${num}`;
-            return String(num);
         },
     },
 }

@@ -24,6 +24,15 @@ const routes = [
     },
   },
   {
+    path: createRouteTemplate(appRoutes.workout, [appParams.id]),
+    name: "Workout",
+    component: () =>
+      import(/* webpackChunkName: "workout" */ "../views/Workout.vue"),
+    meta: {
+      title: "Тренировка",
+    },
+  },
+  {
     path: appRoutes.exercises,
     name: "Exercises",
     component: () =>
