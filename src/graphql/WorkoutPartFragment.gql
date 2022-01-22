@@ -1,0 +1,12 @@
+fragment WorkoutPart on WorkoutPart {
+    id
+    title
+    description
+    exercise {
+        id
+    }
+    weight
+    repetitionsNumber
+    sortOrder
+    completed
+}

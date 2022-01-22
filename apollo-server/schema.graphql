@@ -87,6 +87,7 @@ type Query {
   trainers: [TrainingApparatus]
   workouts: [Workout]!
   workout(id: ID!): Workout
+  activeWorkout: Workout
   "List of messages sent by users"
   messages: [Message]
   uploads: [File]
@@ -125,6 +126,13 @@ type Mutation {
   deleteWorkoutPart(
     ids: [ID]!,
   ): DeleteResult!
+  completeWorkoutPart(
+    id: ID!,
+    wpId: ID!
+  ): workoutData!
+  startWorkout(
+    id: ID!,
+  ): workoutData!
   myMutation: String!
   "Add a message and publish it on 'messages' subscription channel"
   addMessage (input: MessageInput!): Message!

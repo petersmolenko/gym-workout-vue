@@ -21,3 +21,9 @@ export const clearUrl = (url) => {
     .join("/");
   return `/${pureUrl}`;
 };
+
+export const workoutStatus = {
+  free: "B",
+  in_process: "A",
+  completed: "C"
+}

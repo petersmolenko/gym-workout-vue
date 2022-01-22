@@ -19,9 +19,6 @@
         >
             Has data.
         </slot>
-
-        <!-- No result -->
-        <div v-else class="no-result apollo">No result :(</div>
     </div>
 </template>
 

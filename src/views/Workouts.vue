@@ -1,5 +1,5 @@
 <template>
-    <v-container class="fill-height">
+    <v-container class="fill-height d-block">
         <v-row dense class="mb-5">
             <v-dialog
                 v-model="dialog"
@@ -97,6 +97,7 @@
                                     <template v-slot="{ mutate }">
                                         <add-workout-part
                                             fluid
+											:value="value"
                                             :on-change="onChangeWorkPartForm(mutate)"
                                         />
                                     </template>
@@ -153,9 +154,16 @@
                 cols=12
             >
                 <v-card
+					:color="genColorByStatus(item.status) || 'red'"
                 >
                     <div class="d-flex justify-space-between">
                         <div class="flex-grow-1">
+							<v-chip
+								class="mx-5 mt-2"
+								color="black white--text"
+							>
+								{{ getStatusLabel(item.status) }}
+							</v-chip>
                             <v-card-title
                                 class="text-h5"
                                 v-text="item.title"
@@ -168,6 +176,26 @@
                             <v-card-text>{{ item.description }}</v-card-text>
                         </div>
                         <div class="d-flex align-center mx-5">
+							<ApolloMutation
+								v-if="hasFlag(item)"
+								:mutation="require('../graphql/mutations/StartWorkout.gql')"
+								:variables="{id: item.id}"
+								class="mr-2"
+								@done="onSuccessStartWorkout"
+							>
+								<template v-slot="{ mutate }">
+									<v-btn
+										color="black"
+										class="control black--text"
+										dark
+										outlined
+										small
+										@click="mutate()"
+									>
+										<v-icon>mdi-flag</v-icon>
+									</v-btn>
+								</template>
+							</ApolloMutation>
                             <ApolloMutation
                                 :mutation="require('../graphql/mutations/DeleteWorkout.gql')"
                                 :variables="{id: item.id}"
@@ -176,11 +204,11 @@
                             >
                                 <template v-slot="{ mutate }">
                                     <v-btn
-                                        color="orange"
+                                        color="black"
                                         class="control black--text"
-                                        fab
                                         dark
-                                        small
+                                        outlined
+										small
                                         @click="mutate()"
                                     >
                                         <v-icon>mdi-trash-can</v-icon>
@@ -189,9 +217,9 @@
                             </ApolloMutation>
                             <router-link tag="div" :to="`/workout/${item.id}`">
                                 <v-btn
-                                    color="orange"
+                                    color="black"
                                     class="control black--text"
-                                    fab
+									outlined
                                     dark
                                     small
                                 >
@@ -209,6 +237,7 @@
 <script>
 import AddWorkoutPart from "@/components/AddWorkoutPart";
 import gql from "graphql-tag";
+import {workoutStatus} from "@/server/server";
 
 export default {
     name: 'Workouts',
@@ -227,6 +256,7 @@ export default {
                             title
                             description,
                             date
+                            status
                         }
                     }
                 `
@@ -246,7 +276,7 @@ export default {
             workoutParts: [],
             value: {
                 title: '',
-                description: ''
+                description: '',
             }
         }
     },
@@ -255,6 +285,10 @@ export default {
     },
 
     methods: {
+		onSuccessStartWorkout(res) {
+			this.$router.push('/');
+			console.log('success start', res);
+		},
         onChangeWorkPartForm(mutate) {
             return async (val) => {
                 this.editWorkPart = val;
@@ -271,6 +305,7 @@ export default {
             this.dialog = false;
             this.value={};
             this.workoutParts=[];
+			this.showWorkPartForm = false;
             const newWorkout = res?.data?.createWorkout?.workout;
             //
             if (!newWorkout) return;
@@ -283,6 +318,7 @@ export default {
             this.workouts = this.workouts.filter(w => w.id !== deletedWorkout)
         },
         onCancel(mutate) {
+			this.showWorkPartForm = false;
             if (!this.workoutParts.length) return this.onSuccessWorkoutCreate();
 
             mutate();
@@ -296,6 +332,49 @@ export default {
             this.showWorkPartForm = !this.showWorkPartForm;
             console.log('show', this.showWorkPartForm)
         },
+		genColorByStatus(status) {
+			let color = null;
+
+			switch (status) {
+				case workoutStatus.free: {
+					color = 'white';
+					break;
+				}
+				case workoutStatus.in_process: {
+					color = 'yellow';
+					break;
+				}
+				case workoutStatus.completed: {
+					color = 'green';
+					break;
+				}
+				default:
+					color = 'red'
+			}
+
+			return color;
+		},
+		hasFlag(el) {
+			const hasInProcess = this.workouts.some(el => el.status === workoutStatus.in_process);
+
+			if (hasInProcess) return false;
+
+			return el.status !== workoutStatus.completed;
+
+		},
+		getStatusLabel(status) {
+			switch(status.toUpperCase()) {
+				case workoutStatus.free: {
+					return 'Свободная'
+				}
+				case workoutStatus.in_process: {
+					return 'В процессе'
+				}
+				case workoutStatus.completed: {
+					return 'Завершена'
+				}
+			}
+		}
     },
 }
 </script>

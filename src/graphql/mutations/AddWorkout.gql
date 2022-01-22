@@ -16,7 +16,7 @@ mutation createWorkout (
             workoutParts {
                 id
             }
-            completed
+            status
         }
     }
 }

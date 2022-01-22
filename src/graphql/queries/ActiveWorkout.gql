@@ -1,5 +1,5 @@
-query Workout ($id: ID!) {
-    workout (id: $id) {
+query ActiveWorkout {
+    activeWorkout {
         id
         title
         description
@@ -7,14 +7,14 @@ query Workout ($id: ID!) {
             id
             title
             description
-            completed
-            repetitionsNumber
-            weight
             exercise {
                 id
                 title
-
             }
+            weight
+            repetitionsNumber
+            sortOrder
+            completed
         }
         status
         date

@@ -1,0 +1,18 @@
+mutation startWorkout (
+    $id: ID!,
+) {
+    startWorkout (
+        id: $id,
+    ) {
+        workout {
+            id
+            title
+            description
+            date,
+            workoutParts {
+                id
+            }
+            status
+        }
+    }
+}

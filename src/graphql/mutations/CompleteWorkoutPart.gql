@@ -1,0 +1,30 @@
+mutation completeWorkoutPart (
+    $id: ID!,
+    $wpId: ID!
+) {
+    completeWorkoutPart (
+        id: $id,
+        wpId: $wpId
+    ) {
+        workout {
+            id
+            title
+            description
+            date,
+            workoutParts {
+                id
+                title
+                description
+                exercise {
+                    id
+                    title
+                }
+                weight
+                repetitionsNumber
+                sortOrder
+                completed
+            }
+            status
+        }
+    }
+}
