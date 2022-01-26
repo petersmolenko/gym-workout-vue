@@ -105,6 +105,10 @@ type DeleteResult {
   id: ID!
 }
 
+type DeleteWorkoutPartsResult {
+  ids: [ID]!
+}
+
 type Mutation {
   createWorkout(
     title: String!,
@@ -123,9 +127,9 @@ type Mutation {
     sortOrder: Int,
     completed: Boolean
   ): S!
-  deleteWorkoutPart(
+  deleteWorkoutParts(
     ids: [ID]!,
-  ): DeleteResult!
+  ): DeleteWorkoutPartsResult!
   completeWorkoutPart(
     id: ID!,
     wpId: ID!

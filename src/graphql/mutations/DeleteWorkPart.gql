@@ -1,9 +1,9 @@
-mutation deleteWorkoutPart (
+mutation deleteWorkoutParts (
     $ids: [ID]!
 ) {
-    deleteWorkoutPart (
+    deleteWorkoutParts (
         ids: $ids,
     ) {
-        ok
+        ids
     }
 }

@@ -106,7 +106,7 @@ export default {
 		const workout = await this.$apollo.query({
 			query: require('../graphql/queries/ActiveWorkout.gql')
 		});
-		console.log('ffff', workout.data.activeWorkout);
+		//
 		this.workout = workout.data.activeWorkout;
 	},
 	data(){
